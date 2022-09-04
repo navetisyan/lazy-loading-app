@@ -22,7 +22,7 @@ const Profile = () => {
           <UserItem user={user} />
         </div>
       ) : (
-        <div>User doesnt exist</div>
+        <div>User doesn`t exist</div>
       )}
     </>
   );

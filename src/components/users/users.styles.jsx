@@ -8,6 +8,7 @@ export const Block = styled.div`
   border-radius: 8px;
   background: lightblue;
   width: 200px;
+  cursor: pointer;
 
   div {
     margin: 0 auto;
