@@ -1,27 +1,33 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import customData from '../../data/customData';
+import { Block, GridWrapper } from './users.styles';
 
 const UsersList = () => {
+  const navigate = useNavigate();
   const [data, setData] = useState();
   useEffect(() => {
     setData(customData);
   }, []);
 
+  const navigateToUser = (id) => {
+    navigate(`/${id}`);
+  };
   return (
-    <div>
+    <GridWrapper>
       {data &&
         data.map((d) => {
           return (
-            <div key={d.id}>
+            <Block key={d.id} onClick={() => navigateToUser(d.id)}>
               <div>
                 <strong>{d.name}</strong>
                 <div>{d.username}</div>
                 <div>{d.email}</div>
               </div>
-            </div>
+            </Block>
           );
         })}
-    </div>
+    </GridWrapper>
   );
 };
 
