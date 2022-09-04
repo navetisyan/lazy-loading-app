@@ -12,7 +12,7 @@ const Home = () => {
   return (
     <HomeWrapper>
       <Suspense fallback={<Loader />}>
-        <Header>Users Found in the database</Header>
+        <Header>Users Found In The Store</Header>
         <Users />
       </Suspense>
     </HomeWrapper>

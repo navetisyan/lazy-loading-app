@@ -1,14 +1,16 @@
-import { useState, useEffect } from 'react';
+import { useLayoutEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import customData from '../../data/customData';
+import loadCustomData from '../../utils/customData';
 import { Block, GridWrapper } from './users.styles';
+import DataContext from '../../dataContext';
 
 const UsersList = () => {
   const navigate = useNavigate();
-  const [data, setData] = useState();
-  useEffect(() => {
-    setData(customData);
-  }, []);
+  const { data, setData } = useContext(DataContext);
+
+  useLayoutEffect(() => {
+    if (!data) setData(loadCustomData());
+  }, [data]);
 
   const navigateToUser = (id) => {
     navigate(`/${id}`);

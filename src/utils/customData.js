@@ -1,7 +1,7 @@
-import posts from './posts.json';
-import users from './users.json';
+import posts from '../data/posts.json';
+import users from '../data/users.json';
 
-export default (() => {
+const loadCustomData = () => {
   console.log('customData intializing...');
   const postsCollected = posts.reduce((aggr, post) => {
     const { userId, ...otherProps } = post;
@@ -14,6 +14,6 @@ export default (() => {
   return users.map((user) => {
     return { ...user, posts: postsCollected[user.id] };
   });
-})();
+};
 
-//export default customData;
+export default loadCustomData;
