@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import { useCallback, useRef } from 'react';
 import { CSVLink } from 'react-csv';
 import Post from './post.component';
@@ -26,7 +27,13 @@ const UserItem = ({ user }) => {
         <CSVLink data={user.posts} filename={`${user.name}.csv`}>
           Export As CSV
         </CSVLink>
-        <a className="save-btn" onClick={saveData}>
+        <a
+          href="#"
+          onClick={(e) => {
+            e.preventDefault();
+            saveData();
+          }}
+        >
           Save as Image
         </a>
       </BtnWrapper>
