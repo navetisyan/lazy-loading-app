@@ -16,11 +16,6 @@ const Profile = () => {
       const user = data.find((data) => data.id === parseInt(userId));
       setUser(user);
     }
-    // add following lines to change behavior of loading users data
-    // on profile's page too
-    // else {
-    //   setData(loadCustomData());
-    // }
   }, [userId, data]);
 
   return (
