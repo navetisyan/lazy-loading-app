@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/jsx-pascal-case */
 import { lazy, useEffect, useRef, useState, useContext } from 'react';
 import Loader from '../../components/loader/loader.component';
