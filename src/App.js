@@ -4,6 +4,8 @@ import Home from './routes/home/home.component';
 import Profile from './routes/profile/profile.component';
 import DataContext from './dataContext';
 
+//TODO: store a dataContext to the localStorage
+
 function App() {
   const [data, setData] = useState(null);
 
