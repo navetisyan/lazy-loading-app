@@ -12,6 +12,7 @@ const UserItem = ({ user }) => {
     const canvas = await html2canvas(dataRef.current);
     const dataURL = canvas.toDataURL('image/png');
     FileSaver.saveAs(dataURL, `${user.name}.png`);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
