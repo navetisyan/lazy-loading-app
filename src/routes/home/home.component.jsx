@@ -13,15 +13,9 @@ import loadCustomData from '../../utils/customData';
 const Home = () => {
   const dispatch = useDispatch();
   const LazyUsers = useRef(null);
-  const data = useSelector((state) => {
-    return state.data.dataItems;
-  });
-  const isLoaded = useSelector((state) => {
-    return state.data.isLoaded;
-  });
-  const isImported = useSelector((state) => {
-    return state.data.isImported;
-  });
+  const data = useSelector((state) => state.data.dataItems);
+  const isLoaded = useSelector((state) => state.data.isLoaded);
+  const isImported = useSelector((state) => state.data.isImported);
 
   useEffect(() => {
     (async () => {

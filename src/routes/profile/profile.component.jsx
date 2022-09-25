@@ -1,14 +1,14 @@
-import { useState, useEffect, useContext } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import UserItem from '../../components/user-item/user-item.component';
 import { Header } from '../home/home.styles';
 import { Message, ButtonBox } from './profile.styles';
-import DataContext from '../../dataContext';
+import { useSelector } from 'react-redux';
 
 const Profile = () => {
   const [user, setUser] = useState();
   const { userId } = useParams();
-  const { data } = useContext(DataContext);
+  const data = useSelector((state) => state.data.dataItems);
   const navigate = useNavigate();
 
   useEffect(() => {

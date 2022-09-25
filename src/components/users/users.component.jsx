@@ -3,11 +3,8 @@ import { Block, GridWrapper } from './users.styles';
 import { useSelector } from 'react-redux';
 
 const UsersList = () => {
-  console.log('UsersList CALLED');
   const navigate = useNavigate();
-  const data = useSelector((state) => {
-    return state.data.dataItems;
-  });
+  const data = useSelector((state) => state.data.dataItems);
 
   const navigateToUser = (id) => {
     navigate(`/${id}`);
