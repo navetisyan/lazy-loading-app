@@ -1,16 +1,27 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/jsx-pascal-case */
-import { lazy, useEffect, useRef, useState, useContext } from 'react';
+import { lazy, useEffect, useRef } from 'react';
+import { ErrorBoundary } from 'react-error-boundary';
+import { useDispatch, useSelector } from 'react-redux';
+import { setData, setIsImported } from '../../store/data/data.action';
+
 import Loader from '../../components/loader/loader.component';
+import ErrorHandler from '../../components/error-handler/error.component';
 import { HomeWrapper, Header } from './home.styles';
 import loadCustomData from '../../utils/customData';
-import DataContext from '../../dataContext';
 
 const Home = () => {
+  const dispatch = useDispatch();
   const LazyUsers = useRef(null);
-  const [isLoaded, setIsLoaded] = useState(false);
-  const [isImported, setIsImported] = useState(false);
-  const { data, setData } = useContext(DataContext);
+  const data = useSelector((state) => {
+    return state.data.dataItems;
+  });
+  const isLoaded = useSelector((state) => {
+    return state.data.isLoaded;
+  });
+  const isImported = useSelector((state) => {
+    return state.data.isImported;
+  });
 
   useEffect(() => {
     (async () => {
@@ -18,8 +29,7 @@ const Home = () => {
         if (data) return;
         const loadedData = await initializing();
         if (loadedData) {
-          setData(loadedData);
-          setIsLoaded(true);
+          dispatch(setData(loadedData));
         }
       } catch (err) {
         console.log('Something went wrong', err);
@@ -28,15 +38,22 @@ const Home = () => {
   }, []);
 
   useEffect(() => {
-    if (data && !isImported) {
-      LazyUsers.current = lazy(() =>
-        import(
-          /* webpackChunkName: "lazy_users" */
-          '../../components/users/users.component'
-        )
-      );
-      setIsImported(true);
-    }
+    (async () => {
+      if (data && !isImported) {
+        try {
+          LazyUsers.current = (
+            await import(
+              /* webpackChunkName: "lazy_users" */
+              '../../components/users/users.component'
+            )
+          ).default;
+
+          dispatch(setIsImported(true));
+        } catch (err) {
+          console.log('lazy loading failed... ', err);
+        }
+      }
+    })();
   }, [data, isImported]);
 
   const initializing = () =>
@@ -50,14 +67,16 @@ const Home = () => {
 
   return (
     <HomeWrapper>
-      {(data && LazyUsers.current) || (isLoaded && isImported) ? (
-        <>
-          <Header>Users Found In The Store</Header>
-          <LazyUsers.current />
-        </>
-      ) : (
-        <Loader />
-      )}
+      <ErrorBoundary FallbackComponent={ErrorHandler}>
+        {(data && LazyUsers.current) || (isLoaded && isImported) ? (
+          <>
+            <Header>Users Found In The Store</Header>
+            <LazyUsers.current />
+          </>
+        ) : (
+          <Loader />
+        )}
+      </ErrorBoundary>
     </HomeWrapper>
   );
 };

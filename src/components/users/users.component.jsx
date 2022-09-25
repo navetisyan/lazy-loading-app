@@ -1,11 +1,13 @@
-import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Block, GridWrapper } from './users.styles';
-import DataContext from '../../dataContext';
+import { useSelector } from 'react-redux';
 
 const UsersList = () => {
+  console.log('UsersList CALLED');
   const navigate = useNavigate();
-  const { data } = useContext(DataContext);
+  const data = useSelector((state) => {
+    return state.data.dataItems;
+  });
 
   const navigateToUser = (id) => {
     navigate(`/${id}`);
