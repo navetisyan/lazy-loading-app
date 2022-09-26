@@ -1,9 +1,10 @@
-import { useContext } from 'react';
+import { useContext, memo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Block, GridWrapper } from './users.styles';
 import DataContext from '../../dataContext';
 
 const UsersList = () => {
+  console.log('UsersList CALLING..');
   const navigate = useNavigate();
   const { data } = useContext(DataContext);
 
@@ -28,4 +29,7 @@ const UsersList = () => {
   );
 };
 
-export default UsersList;
+export default memo(UsersList);
+
+
+
