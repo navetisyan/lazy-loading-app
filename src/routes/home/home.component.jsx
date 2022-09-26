@@ -29,11 +29,16 @@ const Home = () => {
         console.log('Something went wrong', err);
       }
     })();
+
+    return ()=> {
+      dispatch(setIsImported(false));
+    }
   }, []);
 
   useEffect(() => {
     (async () => {
-      if (data && !isImported) {
+     // if (data && !isImported) {
+       if(data && !LazyUsers.current){
         try {
           LazyUsers.current = (
             await import(
@@ -48,7 +53,7 @@ const Home = () => {
         }
       }
     })();
-  }, [data, isImported]);
+  }, [data, LazyUsers]);
 
   const initializing = () =>
     new Promise((resolve) =>
@@ -62,7 +67,7 @@ const Home = () => {
   return (
     <HomeWrapper>
       <ErrorBoundary FallbackComponent={ErrorHandler}>
-        {(data && LazyUsers.current) || (isLoaded && isImported) ? (
+        {((data && LazyUsers.current) || (isLoaded && isImported))  ? ( 
           <>
             <Header>Users Found In The Store</Header>
             <LazyUsers.current />

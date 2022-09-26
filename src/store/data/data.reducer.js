@@ -18,7 +18,7 @@ export const dataReducer = (state = INITIAL_STATE, action) => {
     case DATA_ACTION_TYPES.SET_IS_IMPORTED_DATA:
       return {
         ...state,
-        isImported: true,
+        isImported: payload,
       };
     default:
       return state;
