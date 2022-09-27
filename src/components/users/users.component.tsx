@@ -1,12 +1,13 @@
 import { useNavigate } from 'react-router-dom';
 import { Block, GridWrapper } from './users.styles';
 import { useSelector } from 'react-redux';
+import { RootState } from '../../store/store';
 
-const UsersList = () => {
+const UsersList: React.FC = () => {
   const navigate = useNavigate();
-  const data = useSelector((state) => state.data.dataItems);
+  const data = useSelector((state: RootState) => state.data.dataItems);
 
-  const navigateToUser = (id) => {
+  const navigateToUser = (id: number) => {
     navigate(`/${id}`);
   };
   return (
