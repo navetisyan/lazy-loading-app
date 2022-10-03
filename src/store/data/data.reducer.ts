@@ -1,11 +1,15 @@
 import { DATA_ACTION_TYPES } from './data.types';
+import { dataActionType } from './data.action';
 const INITIAL_STATE = {
   dataItems: null,
   isLoaded: false,
   isImported: false,
 };
 
-export const dataReducer = (state = INITIAL_STATE, action) => {
+export const dataReducer = (
+  state = INITIAL_STATE,
+  action = {} as dataActionType
+) => {
   const { type, payload } = action;
 
   switch (type) {

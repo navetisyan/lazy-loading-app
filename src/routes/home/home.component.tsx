@@ -5,6 +5,7 @@ import { ErrorBoundary } from 'react-error-boundary';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
 import { setData, setIsImported } from '../../store/data/data.action';
+import { dataItem } from '../../store/data/data.types';
 
 import Loader from '../../components/loader/loader.component';
 import ErrorHandler from '../../components/error-handler/error.component';
@@ -61,14 +62,19 @@ const Home = () => {
     })();
   }, [data, LazyUsers]);
 
-  const initializing = () =>
-    new Promise((resolve) =>
+  interface initilizedType {
+    data: dataItem[];
+  }
+
+  const initializing = () => {
+    return new Promise<dataItem[]>((resolve) =>
       setTimeout(() => {
         //pretending that initialization lasts longer :)
         const result = loadCustomData();
         resolve(result);
       }, 500)
     );
+  };
 
   return (
     <HomeWrapper>
